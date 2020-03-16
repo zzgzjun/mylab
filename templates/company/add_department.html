@@ -1,0 +1,59 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="/company/department/"><i class="fa fa-dashboard"></i> 部门管理</a></li>
+                    <li class="active">添加部门</li>
+                </ol>
+            </h4>
+{% endblock %}
+{% block content %}
+    <h3 style="text-align: center">单位部门管理</h3>
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>添加部门</span>
+            </div>
+            <div class="panel-body">
+                <form action="/company/add_department/" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="department_index">部门编号：</label>
+                        {% if last_department_info %}
+                            <input type="text" name="department_index" class="form-control" id="department_index"  value='{{ last_department_info.department_index|add:1}}' readonly>
+                        {% else %}
+                            <input type="text" name="department_index" class="form-control" id="department_index"  value='1' readonly>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department_name">部门名称：</label>
+                        <input type="text" name="department_name" class="form-control" id="department_name" placeholder="请输入部门名称">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department_position">部门位置：</label>
+                        <input type="text" name="department_position" class="form-control" id="department_position" placeholder="请输入部门位置">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="belong_company">请选择所属单位：</label>
+                        <select name="belong_company" id="belong_company" class="form-control">
+                            {% for row in company_list %}
+                                <option value="{{ row.id }}">
+                                            {{ forloop.counter }}--
+                                            {{ row.company_index }}--
+                                            {{ row.company_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">提交</button>
+
+                </form>
+            </div>
+
+       </div>
+{% endblock %}

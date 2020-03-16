@@ -1,0 +1,41 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> 样本类型管理</a></li>
+                    <li class="active">样本类型列表</li>
+                </ol>
+            </h4>
+
+{% endblock %}
+{% block content %}
+    <div>
+        <h3 style="text-align: center">样本类型</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/record/add_specimentype/">添加样本类型</a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                        <tr><td>类型编号</td><td>类型名称</td></tr>
+                    </thead>
+                    <tbody>
+                    {% for row in specimentype_list %}
+                        <tr>
+                            <td>{{ row.specimen_type_index}}</td>
+                            <td>{{ row.specimen_type_name}}</td>
+                            <td>
+                                <a type="button" class="btn btn-xs btn-warning" href="/record/edit_specimentype/?nid={{ row.id }}">编辑</a>
+                                <a type="button" class="btn btn-xs btn-danger" href="/record/del_specimentype/?nid={{ row.id }}">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+       </div>
+    </div>
+
+{% endblock %}

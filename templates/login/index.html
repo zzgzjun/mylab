@@ -1,0 +1,9 @@
+{% extends 'public/base.html' %}
+{% block content %}
+    <h1 style="text-align: center">实验室管理中心</h1>
+    <form action="/record/excel/" method="post">
+    {% csrf_token %}
+        <input type="file" name="file1">
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

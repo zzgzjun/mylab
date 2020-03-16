@@ -1,0 +1,83 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> 员工管理</a></li>
+                    <li class="active">编辑员工</li>
+                </ol>
+            </h4>
+{% endblock %}
+{% block content %}
+    <h3 style="text-align: center">员工管理</h3>
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>编辑部门员工</span>
+            </div>
+            <div class="panel-body">
+                <form action="/company/edit_employee/" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="employee_index">员工编号：</label>
+                        {% if employee_info %}
+                            <input type="text" name="employee_index" class="form-control" id="employee_index"  value='{{ employee_info.employee_index}}' readonly>
+                        {% else %}
+                            <input type="text" name="employee_index" class="form-control" id="employee_index"  value='员工不存在' readonly>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employee_name">员工姓名：</label>
+                        <input type="text" name="employee_name" class="form-control" id="employee_name" value="{{ employee_info.employee_name }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employee_gender">员工性别：</label>
+{#                        <input type="text" name="employee_gender" class="form-control" id="employee_gender" placeholder="请输入员工性别">#}
+                        <select name="employee_gender" id="employee_gender" >
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                            <option value="不详">不详</option>
+                        </select>
+                    </div>
+
+
+                     <div class="form-group">
+                        <label for="employee_telephone">员工电话：</label>
+                        <input type="text" name="employee_telephone" class="form-control" id="employee_telephone" placeholder="请输入员工电话" value="{{ employee_info.employee_telephone }}">
+                     </div>
+
+                    <div class="form-group">
+                        <label for="belong_company">请选择所属单位：</label>
+                        <select name="belong_company" id="belong_company" class="form-control">
+                            {% for row in company_list %}
+                                {% if rowid == employee_info.belong_department.belong_company.id %}
+                                    <option value="{{ row.id }}" selected>{{ row.company_name }}</option>
+                                {% else %}
+                                    <option value="{{ row.id }}">{{ row.company_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="belong_department">请选择所属部门：</label>
+                        <select name="belong_department" id="belong_department" class="form-control">
+                            {% for row in department_list %}
+                                {% if row.id == employee_info.belong_department.id  %}
+                                    <option value="{{ row.id }}" selected>{{ row.department_name }}</option>
+                                {% else %}
+                                    <option value="{{ row.id }}">{{ row.department_name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-default">提交</button>
+
+                </form>
+            </div>
+
+       </div>
+{% endblock %}

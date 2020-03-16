@@ -1,0 +1,41 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="/record/specimen_type/"><i class="fa fa-dashboard"></i> 项目类型管理</a></li>
+                    <li class="active">添加项目类型</li>
+                </ol>
+            </h4>
+{% endblock %}
+{% block content %}
+    <h3 style="text-align: center">项目类型管理</h3>
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>添加项目类型</span>
+            </div>
+            <div class="panel-body">
+                <form action="/record/add_specimentype/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="specimentype_index">样本类型编号：</label>
+                        {% if last_specimentype_info %}
+                            <input type="text" name="specimentype_index" class="form-control" id="specimentype_index"  value='{{ last_specimentype_info.specimen_type_index|add:1}}' readonly>
+                        {% else %}
+                            <input type="text" name="specimentype_index" class="form-control" id="specimentype_index"  value='1' readonly>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specimentype_name">样本类型名称：</label>
+                        <input type="text" name="specimentype_name" class="form-control" id="specimentype_name" placeholder="请输入样本类型">
+                    </div>
+
+
+                    <button type="submit" class="btn btn-default">提交</button>
+
+                </form>
+            </div>
+
+       </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="/company/company/"><i class="fa fa-dashboard"></i> 单位管理</a></li>
+                    <li class="active">添加单位</li>
+                </ol>
+            </h4>
+{% endblock %}
+{% block content %}
+    <h3 style="text-align: center">单位信息管理</h3>
+    <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>添加单位</span>
+            </div>
+            <div class="panel-body">
+                <form action="/company/add_company/" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="company_index">单位编号：</label>
+                        {% if last_company_info %}
+                            <input type="text" name="company_index" class="form-control" id="company_index"  value='{{ last_company_info.company_index|add:1}}' readonly>
+                        {% else %}
+                            <input type="text" name="company_index" class="form-control" id="company_index"  value='1001' readonly>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company_name">单位名称：</label>
+                        <input type="text" name="company_name" class="form-control" id="company_name" placeholder="请输入单位名称">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company_address">单位地址：</label>
+                        <input type="text" name="company_address" class="form-control" id="company_address" placeholder="请输入单位名称">
+                    </div>
+
+                    <button type="submit" class="btn btn-default">提交</button>
+
+                </form>
+            </div>
+
+       </div>
+{% endblock %}

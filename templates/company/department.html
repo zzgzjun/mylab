@@ -1,0 +1,43 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> 部门管理</a></li>
+                    <li class="active">部门列表</li>
+                </ol>
+            </h4>
+
+{% endblock %}
+{% block content %}
+    <div>
+        <h3 style="text-align: center">部门管理</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/company/add_department/">添加部门</a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                        <tr><td>部门编号</td><td>部门名称</td><td>所属单位</td><td>部门地址</td><td>操作</td></tr>
+                    </thead>
+                    <tbody>
+                    {% for row in department_list %}
+                        <tr>
+                            <td>{{ row.department_index}}</td>
+                            <td>{{ row.department_name}}</td>
+                            <td>{{ row.belong_company}}</td>
+                            <td>{{ row.department_position }}</td>
+                            <td>
+                                <a type="button" class="btn btn-xs btn-warning" href="/company/edit_department/?nid={{ row.id }}">编辑</a>
+                                <a type="button" class="btn btn-xs btn-danger" href="/company/del_department/?nid={{ row.id }}">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+       </div>
+    </div>
+
+{% endblock %}

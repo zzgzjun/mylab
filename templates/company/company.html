@@ -1,0 +1,42 @@
+{% extends 'public/base.html' %}
+{% block content-header %}
+            <h4>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> 单位管理</a></li>
+                    <li class="active">单位列表</li>
+                </ol>
+            </h4>
+
+{% endblock %}
+{% block content %}
+    <div>
+        <h3 style="text-align: center">单位管理</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/company/add_company/">添加单位</a>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover table-responsive">
+                    <thead>
+                        <tr><td>单位编号</td><td>单位名称</td><td>单位地址</td><td>操作</td></tr>
+                    </thead>
+                    <tbody>
+                    {% for row in company_list %}
+                        <tr>
+                            <td>{{ row.company_index}}</td>
+                            <td>{{ row.company_name}}</td>
+                            <td>{{ row.company_address }}</td>
+                            <td>
+                                <a type="button" class="btn btn-xs btn-warning" href="/company/edit_company/?nid={{ row.id }}">编辑</a>
+                                <a type="button" class="btn btn-xs btn-danger" href="/company/del_company/?nid={{ row.id }}">删除</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+       </div>
+    </div>
+
+{% endblock %}
